@@ -30,44 +30,48 @@ the game and open the launcher on both PCs.
 
 
 PLAYING TOGETHER OVER THE INTERNET
-One of you hosts, the other joins. The host needs the better PC and the
-better internet upload speed, because the whole battle runs on the host.
+One of you hosts, the other joins. The whole battle runs on the host's PC,
+so the host wants the better PC and the better upload speed.
 
 The host:
-1. Main menu > Skirmish. Set up the battle, then press "Host online".
-2. The game asks your router to open UDP port 27015 automatically (UPnP).
-   The banner at the top says what happened:
-   - "over the internet they join at 1.2.3.4" -> send that address to your
-     friend. The launcher also shows your internet address, with a Copy
-     button.
-   - "the router did not open it" -> open the port by hand (see below), then
-     host again.
-3. The first time you host, Windows Firewall asks whether to allow
-   panzerkommandant.exe. Tick both "Private" and "Public" and click Allow.
-   If you clicked Cancel by mistake: Start > "Allow an app through Windows
-   Firewall" > Change settings > tick panzerkommandant.exe on both columns.
+1. Main menu > Multiplayer > Host a Skirmish. Set up the battle and press
+   "Host online".
+2. The banner at the top shows the ONE address to send your friend (press C
+   to copy it) and, underneath, whether they can get through:
+   - "Your router opened port 27015 for the game" -> good to go.
+   - "Your router did not open the port" -> forward UDP port 27015 to your
+     PC in the router's settings (see below), then host again.
+   - "Your internet provider shares your address with other customers" ->
+     your connection cannot host at all (many providers do this). Let the
+     other player host, or use Tailscale (below).
+3. The first time you host, Windows Firewall asks about panzerkommandant.exe:
+   tick both "Private" and "Public" and click Allow.
 
 The joiner:
-1. Main menu > Skirmish > "Join online".
-2. Type the host's address and press Connect. Nothing to set up on your side.
+1. Main menu > Multiplayer > Join a Skirmish.
+2. Type the address the host's banner shows and press Connect.
+
+Both of you must have the same version (shown on the title screen): always
+start the game from the launcher and it keeps you the same.
+
+
+IF NEITHER CONNECTION CAN HOST: TAILSCALE
+Tailscale (free, tailscale.com) links two PCs as if they were on the same
+network, whatever the providers and routers do.
+1. Both of you install Tailscale and sign in. The host shares their machine
+   with the joiner (in the Tailscale admin page: Share), or you both sign
+   in to the same account.
+2. Host as usual: the banner then shows the host's Tailscale address
+   (100.x.y.z) -- send that one.
 
 
 IF THE ROUTER DID NOT OPEN THE PORT
 Log in to your router (usually http://192.168.0.1 or http://192.168.1.1; the
 password is often on a sticker on the router) and find "Port forwarding"
-(sometimes called "Virtual servers" or "NAT"). Add a rule:
+(sometimes "Virtual servers" or "NAT"). Add a rule:
    Protocol: UDP     External port: 27015     Internal port: 27015
-   Device / internal IP: the hosting PC (the game shows it in the banner)
+   Device / internal IP: the hosting PC (the banner shows it)
 Or switch on "UPnP" in the router's settings and host again.
-
-STILL CANNOT CONNECT?
-- Swap roles: let the other player host.
-- Some internet providers put customers behind a shared address ("CGNAT"),
-  and nobody behind one can host. If the address the launcher shows is
-  different from the WAN address on your router's status page, that is you:
-  let the other player host, or ask your provider for a public IP.
-- As a last resort, both install a free virtual LAN such as Tailscale or
-  ZeroTier and join with the address it gives the host.
 
 
 LAG
